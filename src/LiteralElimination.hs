@@ -9,10 +9,6 @@ import qualified Data.Set                      as Set
 import           BtBase
 
 
-data Polarity = Positive | Negative | Mixed
-  deriving (Show, Eq)
-
-
 -- Get all literals in an expression.
 allLiterals :: Expr -> Set Char
 allLiterals expr = case expr of

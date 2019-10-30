@@ -23,7 +23,7 @@ fixNegations expr = case expr of
   Not e         -> Not (fixNegations e)
   And a b       -> And (fixNegations a) (fixNegations b)
   Or  a b       -> Or (fixNegations a) (fixNegations b)
-  _             -> expr
+  e             -> e
 
 
 -- Distribute disjunction over conjunction.
@@ -37,7 +37,7 @@ distribute expr = case expr of
   Or  a b -> Or (distribute a) (distribute b)
   And a b -> And (distribute a) (distribute b)
   Not e   -> Not (distribute e)
-  _       -> expr
+  e       -> e
 
 
 -- Convert an Expr to CNF.

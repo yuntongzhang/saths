@@ -23,6 +23,10 @@ data Expr = Var Char
   deriving (Show, Eq)
 
 
+data Polarity = Positive | Negative | Mixed
+  deriving (Show, Eq)
+
+
 -- Return the first free variable in a boolean expression.
 -- If no free variable, return Nothing
 findFree :: Expr -> Maybe Char
@@ -73,13 +77,13 @@ simplify (And a b) =
           [e1, e2] -> And e1 e2
 
 
--- The driver
-sat :: Expr -> Bool
-sat e =
+-- The driver for backtracking
+satBt :: Expr -> Bool
+satBt e =
   let outputRes res = case res of
         Const b -> b
         _       -> error "Must output result from Const."
   in  case findFree e of
         Nothing -> outputRes e
-        Just v  -> sat (simplify (guessVar v True e))
-          || sat (simplify (guessVar v False e))
+        Just v  -> satBt (simplify (guessVar v True e))
+          || satBt (simplify (guessVar v False e))
