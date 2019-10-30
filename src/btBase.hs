@@ -11,8 +11,16 @@
        last assignment, and assign the opposite value.
 -}
 
+module BtBase where
 import           Control.Applicative            ( (<|>) )
-import           ExprBase
+
+
+data Expr = Var Char
+          | And Expr Expr
+          | Or Expr Expr
+          | Not Expr
+          | Const Bool
+  deriving (Show, Eq)
 
 
 -- Return the first free variable in a boolean expression.
